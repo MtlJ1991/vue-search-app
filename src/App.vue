@@ -36,14 +36,17 @@
             </v-layout>
         </v-container>
     </v-content>
-    <v-footer app fixed>
-        <span>&copy; 2017</span>
-    </v-footer>
+    <BottomNav />
 </v-app>
 </template>
 
 <script>
+import BottomNav from './BottomNav.vue'
+
 export default {
+    components: {
+        BottomNav
+    },
     data: () => ({
         drawer: null
     }),
