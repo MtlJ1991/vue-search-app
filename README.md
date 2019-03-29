@@ -23,3 +23,7 @@ npm run serve
 This will host the application locally on: 
 
 http://localhost:8080/
+
+Application is deployed using Firebase and found here:
+
+https://hotel-search-bffb0.firebaseapp.com/
