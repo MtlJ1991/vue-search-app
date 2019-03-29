@@ -31,11 +31,43 @@
                             <v-spacer></v-spacer>
                             <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
                         </v-card-title>
-                        <v-data-table :headers="headers" :items="this.hotels" :search="search">
+                        <v-data-table :pagination.sync="pagination" :headers="headers" :items="this.hotels" :search="search">
                             <template v-slot:items="props">
                                 <td>{{ props.item.name }}</td>
-                                <td class="text-xs-right">{{ props.item.starRating }}</td>
-                                <td class="text-xs-right" v-for="item in props.item.facilities" :key ="item">{{ item  + ' ,' }}</td>
+                                <td class="text-xs-left">{{ props.item.starRating }}</td>
+                                <td class="text-xs-left">{{ props.item.facilities[0] }}...</td>
+
+                                <template>
+                                    <div class="text-xs-center">
+                                        <v-dialog v-model="dialog" width="500">
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn color="red lighten-2" dark v-on="on">
+                                                    Click Me
+                                                </v-btn>
+                                            </template>
+
+                                            <v-card>
+
+                                                <v-card-title class="headline grey lighten-2" primary-title>
+                                                    {{ props.item.name }}
+                                                </v-card-title>
+                                                <img v-bind:src="props.item.img">
+
+                                                <v-card-text>This hotel has a {{props.item.starRating}} rating, and has the following facilities:</v-card-text>
+                                                <v-card-text v-for="item in props.item.facilities" :key="item"> {{ item }} </v-card-text>
+
+                                                <v-divider></v-divider>
+
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="primary" flat @click="dialog = false">
+                                                        I accept
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </div>
+                                </template>
                             </template>
                             <v-alert v-slot:no-results :value="true" color="error" icon="warning">
                                 Your search for "{{ search }}" found no results.
@@ -61,7 +93,12 @@ export default {
     },
     data: () => ({
         drawer: null,
+        dialog: false,
         search: '',
+        pagination: {
+            sortBy: 'DateCreated',
+            descending: true
+        },
         headers: [{
                 text: 'Hotel Name',
                 align: 'left',
@@ -71,13 +108,13 @@ export default {
             {
                 text: 'Star rating',
                 value: 'starRating',
-                                align: 'left',
+                align: 'left',
 
             },
             {
                 text: 'Facilities',
                 value: 'facilities',
-                                align: 'left',
+                align: 'left',
 
             }
         ],
@@ -90,6 +127,7 @@ export default {
             return this.$store.state.hotels ?
                 this.$store.state.hotels : {};
         },
+
     },
 
     created() {
