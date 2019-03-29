@@ -1,22 +1,17 @@
 <template>
 <v-app id="inspire" dark>
-    <v-navigation-drawer v-model="drawer" clipped fixed app>
-        <v-list dense>
-            <v-list-tile @click="">
-                <v-list-tile-action>
-                    <v-icon>dashboard</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>Dashboard</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
 
-    </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Hotel search application</v-toolbar-title>
-    </v-toolbar>
+    <section>
+        <v-parallax src="https://images.unsplash.com/photo-1553835568-391aadbe2efb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" height="400">
+            <v-layout column align-center justify-center class="white--text">
+                <h1 class="white--text mb-2 display-1 text-xs-center">Hotel search</h1>
+                <div class="subheading mb-3 text-xs-center">Powered by Vuex</div>
+            </v-layout>
+        </v-parallax>
+    </section>
+
+    <HotelCards />
+
     <v-content>
         <v-container fluid fill-height>
             <v-layout justify-center align-center>
@@ -41,7 +36,7 @@
                                     <div class="text-xs-center">
                                         <v-dialog v-model="dialog" width="500">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn color="red lighten-2" dark v-on="on">
+                                                <v-btn color="teal lighten-2" dark v-on="on">
                                                     Click Me
                                                 </v-btn>
                                             </template>
@@ -74,22 +69,30 @@
                             </v-alert>
                         </v-data-table>
                     </v-card>
-
                 </v-flex>
             </v-layout>
         </v-container>
     </v-content>
+
+    <v-parallax src="https://picsum.photos/458/354" height="600">
+        <v-layout column align-center justify-center class="white--text">
+            <v-img src="https://picsum.photos/458/354" aspect-ratio="2.75"></v-img>
+            <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
+        </v-layout>
+    </v-parallax>
     <BottomNav />
 </v-app>
 </template>
 
 <script>
 import BottomNav from './BottomNav.vue'
+import HotelCards from './HotelCards.vue'
 import state from "./store.js";
 
 export default {
     components: {
-        BottomNav
+        BottomNav,
+        HotelCards
     },
     data: () => ({
         drawer: null,
