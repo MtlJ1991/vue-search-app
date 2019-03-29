@@ -11,6 +11,7 @@
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
+
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -21,17 +22,9 @@
             <v-layout justify-center align-center>
                 <v-flex shrink>
                     <v-tooltip right>
-
                         <span>Source</span>
                     </v-tooltip>
-                    <v-tooltip right>
-                        <template v-slot:activator="{ on }">
-                            <v-btn icon large href="https://codepen.io/johnjleider/pen/qxQWda" target="_blank" v-on="on">
-                                <v-icon large>mdi-codepen</v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Codepen</span>
-                    </v-tooltip>
+             {{ this.hotels }}
                 </v-flex>
             </v-layout>
         </v-container>
@@ -42,6 +35,8 @@
 
 <script>
 import BottomNav from './BottomNav.vue'
+import state from "./store.js";
+
 
 export default {
     components: {
@@ -52,6 +47,16 @@ export default {
     }),
     props: {
         source: String
+    },
+    computed: {
+        hotels() {
+            return this.$store.state.hotels ?
+                this.$store.state.hotels : {};
+        },
+    },
+
+    created () {
+      console.log(this.$store.state.hotels)
     }
 }
 </script>
